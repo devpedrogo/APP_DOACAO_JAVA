@@ -1,18 +1,45 @@
-## Getting Started
+# Rede Solidária: Sistema de Doação e Reaproveitamento
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+## 📌 Sobre o Projeto
+Este projeto é uma aplicação desenvolvida em **Java** com o objetivo de conectar doadores a instituições e pessoas em situação de vulnerabilidade. O foco é facilitar o fluxo de doações, garantindo rastreabilidade e priorização para quem mais precisa, combatendo o desperdício e promovendo a economia circular.
 
-## Folder Structure
+O projeto está alinhado com os **Objetivos de Desenvolvimento Sustentável (ODS)** da ONU:
+* **ODS 1:** Erradicação da Pobreza
+* **ODS 10:** Redução das Desigualdades
+* **ODS 12:** Consumo e Produção Responsáveis
 
-The workspace contains two folders by default, where:
+---
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## 🚀 Status do Projeto: Checkpoint 1
+Atualmente, o sistema encontra-se na fase de modelagem inicial e estrutura de dados, contendo:
+- [x] Modelagem das classes principais (POO).
+- [x] Diagrama de classes.
+- [x] Sistema de menu via terminal.
+- [x] Cadastro básico de Doadores, Beneficiários e Itens.
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+---
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+## 📐 Modelagem do Sistema
+O sistema utiliza os conceitos de Herança e Encapsulamento para organizar os usuários e itens:
 
-## Dependency Management
+### Diagrama de Classes
+![Diagrama de Classes](./docs/app_doacao.drawio%20(1).png) 
+*(Dica: Suba a imagem para o seu repositório e coloque o caminho correto acima)*
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+---
+
+## 🛠️ Tecnologias Utilizadas
+* **Linguagem:** Java 17+
+* **Versionamento:** Git & GitHub
+* **Paradigma:** Programação Orientada a Objetos (POO)
+
+---
+
+## 📂 Estrutura de Pastas
+```text
+src/
+ └── br/com/redesolidaria/
+     ├── main/        # Classe de entrada e inicialização (Menu)
+     ├── model/       # Classes de domínio (Doador, Beneficiário, Item)
+     ├── repository/  # Gerenciamento de dados em memória
+     └── util/        # Classes utilitárias e leitores

@@ -24,7 +24,6 @@ O sistema utiliza os conceitos de Herança e Encapsulamento para organizar os us
 
 ### Diagrama de Classes
 ![Diagrama de Classes](./docs/app_doacao.drawio%20(1).png) 
-*(Dica: Suba a imagem para o seu repositório e coloque o caminho correto acima)*
 
 ---
 

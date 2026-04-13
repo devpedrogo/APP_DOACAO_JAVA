@@ -7,6 +7,9 @@ public class Usuario {
     private String telefone;
     private String endereco;
 
+    public Usuario() {
+    }
+
     public Usuario(int id, String nome, String email, String telefone, String endereco) {
         this.id = id;
         this.nome = nome;
@@ -17,6 +20,10 @@ public class Usuario {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {

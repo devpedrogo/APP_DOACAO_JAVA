@@ -12,6 +12,9 @@ public class ItemDoacao {
     private LocalDate dataCadastro;
     private StatusItem status;
 
+    public ItemDoacao() {
+    }
+
     public ItemDoacao(int id, String nome, String descricao, int quantidade, String categoria, String estadoConservacao, LocalDate dataCadastro, StatusItem status) {
         this.id = id;
         this.nome = nome;
@@ -25,6 +28,10 @@ public class ItemDoacao {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {

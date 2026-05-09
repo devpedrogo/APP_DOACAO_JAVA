@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 import util.MenuUtils;
 
-public class cadastroService {
+public class CadastroService {
     public void cadastrarDoador() {
         System.out.println("\n--- NOVO CADASTRO DE DOADOR ---");
         

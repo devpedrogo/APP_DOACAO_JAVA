@@ -1,11 +1,11 @@
 package main;
 
-import service.cadastroService;
+import service.CadastroService;
 import util.MenuUtils;
 
 public class Main {
     public static void main(String[] args) {
-        cadastroService cadastroService = new cadastroService();
+        CadastroService cadastroService = new CadastroService();
         int opcao = 0;
 
         do {

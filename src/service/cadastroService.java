@@ -4,12 +4,22 @@ import model.Doador;
 import model.Beneficiario;
 import model.ItemDoacao;
 import model.StatusItem;
-
+import repository.UsuarioRepository;
+import repository.ItemRepository;
+import util.MenuUtils;
 import java.time.LocalDate;
 
-import util.MenuUtils;
 
 public class CadastroService {
+
+    private UsuarioRepository usuarioRepo;
+    private ItemRepository itemRepo;
+
+    public CadastroService(UsuarioRepository usuarioRepo, ItemRepository itemRepo) {
+        this.usuarioRepo = usuarioRepo;
+        this.itemRepo = itemRepo;
+    }
+
     public void cadastrarDoador() {
         System.out.println("\n--- NOVO CADASTRO DE DOADOR ---");
         
@@ -25,6 +35,8 @@ public class CadastroService {
         doador.setTelefone(fone);
         doador.setEmail(email);
         doador.setEndereco(endereco);
+
+        usuarioRepo.salvarDoador(doador);
 
         System.out.println("Doador " + nome + " registrado com sucesso!");
     }
@@ -49,6 +61,7 @@ public class CadastroService {
         beneficiario.setTipo(tipo);
         beneficiario.setNivelPrioridade(prioridade);
 
+        usuarioRepo.salvarBeneficiario(beneficiario);
         System.out.println("Beneficiário " + nome + " registrado com sucesso!");
     }
 
@@ -63,6 +76,7 @@ public class CadastroService {
         String estado = MenuUtils.lerString("Estado de Conservação: ");
         LocalDate dataCadastro = LocalDate.now();
         StatusItem status = StatusItem.DISPONIVEL;
+        
         ItemDoacao item = new ItemDoacao();
         item.setId(id);
         item.setNome(nome);
@@ -72,6 +86,8 @@ public class CadastroService {
         item.setEstadoConservacao(estado);
         item.setDataCadastro(dataCadastro);
         item.setStatus(status);
+
+        itemRepo.salvar(item);
         System.out.println("Item " + nome + " registrado com sucesso!");
 
     }

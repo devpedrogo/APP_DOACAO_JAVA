@@ -3,6 +3,7 @@ package main;
 import repository.ItemRepository;
 import repository.UsuarioRepository;
 import service.CadastroService;
+import service.SolicitacaoService;
 import util.MenuUtils;
 
 public class Main {
@@ -10,6 +11,7 @@ public class Main {
         ItemRepository itemRepo = new ItemRepository();
         UsuarioRepository usuarioRepo = new UsuarioRepository();
         CadastroService cadastroService = new CadastroService(usuarioRepo, itemRepo);
+        SolicitacaoService solicitacaoService = new SolicitacaoService(itemRepo, usuarioRepo);
         int opcao = 0;
 
         do {
@@ -17,7 +19,8 @@ public class Main {
             System.out.println("1. Cadastrar Doador");
             System.out.println("2. Cadastrar Beneficiário");
             System.out.println("3. Cadastrar Item para Doação");
-            System.out.println("4. Listar Tudo");
+            System.out.println("4. Realizar Solicitação");
+            System.out.println("5. Listar Tudo");
             System.out.println("0. Sair");
             System.out.print("Escolha: ");
             opcao = MenuUtils.lerInteiro("");
@@ -33,6 +36,9 @@ public class Main {
                     cadastroService.cadastrarItem(); 
                     break;
                 case 4:
+                    solicitacaoService.realizarSolicitacao();
+                    break;
+                case 5:
                     System.out.println("\n--- DOADORES ---");
                     usuarioRepo.listarDoadores().forEach(d -> System.out.println(d.getNome()));
                     System.out.println("\n--- BENEFICIÁRIOS ---");

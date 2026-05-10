@@ -33,21 +33,31 @@ public class SolicitacaoService {
             return;
         }
 
-        int qtd = MenuUtils.lerInteiro("Quantidade desejada: ");
+        int qtdSolicitada = MenuUtils.lerInteiro("Quantidade desejada: ");
 
-        if (qtd > item.getQuantidade()) {
-            System.out.println("Erro: Quantidade superior ao estoque disponível!");
-            return;
+        if (qtdSolicitada <= item.getQuantidade()) {
+            int novaQuantidade = item.getQuantidade() - qtdSolicitada;
+            item.setQuantidade(novaQuantidade);
+
+            if (item.getQuantidade() == 0) {
+                item.setStatus(StatusItem.RESERVADO);
+            } else {
+                item.setStatus(StatusItem.DISPONIVEL);
+            }
+
+            String justificativa = MenuUtils.lerString("Justificativa para a solicitação: ");
+    
+            Solicitacao sol = new Solicitacao();
+            sol.setBeneficiario(benef);
+            sol.setItem(item);
+            sol.setQuantidadeSolicitada(qtdSolicitada);
+            sol.setJustificativa(justificativa);
+            sol.setStatus("PENDENTE");
+
+            System.out.println("Solicitação registrada! Restam " + item.getQuantidade() + " unidades deste item.");
+        } else {
+            System.out.println("Erro: Quantidade solicitada excede o disponível! \nRestam apenas " + item.getQuantidade() + " unidades.");
         }
 
-        Solicitacao sol = new Solicitacao();
-        sol.setBeneficiario(benef);
-        sol.setItem(item);
-        sol.setQuantidadeSolicitada(qtd);
-        sol.setStatus("PENDENTE");
-
-        item.setStatus(StatusItem.RESERVADO);
-        
-        System.out.println("Solicitação registrada! O item agora está RESERVADO.");
     }
 }

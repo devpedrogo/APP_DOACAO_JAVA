@@ -44,7 +44,7 @@ public class Main {
                     System.out.println("\n--- BENEFICIÁRIOS ---");
                     usuarioRepo.listarBeneficiarios().forEach(b -> System.out.println(b.getNome()));
                     System.out.println("\n--- ITENS PARA DOAÇÃO ---");
-                    itemRepo.listarTodos().forEach(i -> System.out.println(i.getNome()));
+                    itemRepo.listarTodos().forEach(i -> System.out.println(i.getNome() + " - " + i.getStatus() + " - Qtd: " + i.getQuantidade()));
                     break;
                 case 0:
                     System.out.println("Saindo...");

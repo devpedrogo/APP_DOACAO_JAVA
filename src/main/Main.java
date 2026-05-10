@@ -4,6 +4,7 @@ import repository.ItemRepository;
 import repository.UsuarioRepository;
 import service.CadastroService;
 import service.SolicitacaoService;
+import service.ConsultaService;
 import util.MenuUtils;
 
 public class Main {
@@ -12,6 +13,7 @@ public class Main {
         UsuarioRepository usuarioRepo = new UsuarioRepository();
         CadastroService cadastroService = new CadastroService(usuarioRepo, itemRepo);
         SolicitacaoService solicitacaoService = new SolicitacaoService(itemRepo, usuarioRepo);
+        ConsultaService consultaService = new ConsultaService(itemRepo, usuarioRepo);
         int opcao = 0;
 
         do {
@@ -20,7 +22,10 @@ public class Main {
             System.out.println("2. Cadastrar Beneficiário");
             System.out.println("3. Cadastrar Item para Doação");
             System.out.println("4. Realizar Solicitação");
-            System.out.println("5. Listar Tudo");
+            System.out.println("5. Listar Doadores");
+            System.out.println("6. Listar Beneficiários");
+            System.out.println("7. Listar Itens Disponíveis");
+            System.out.println("8. Filtrar Itens por Categoria");
             System.out.println("0. Sair");
             System.out.print("Escolha: ");
             opcao = MenuUtils.lerInteiro("");
@@ -39,12 +44,16 @@ public class Main {
                     solicitacaoService.realizarSolicitacao();
                     break;
                 case 5:
-                    System.out.println("\n--- DOADORES ---");
-                    usuarioRepo.listarDoadores().forEach(d -> System.out.println(d.getNome()));
-                    System.out.println("\n--- BENEFICIÁRIOS ---");
-                    usuarioRepo.listarBeneficiarios().forEach(b -> System.out.println(b.getNome()));
-                    System.out.println("\n--- ITENS PARA DOAÇÃO ---");
-                    itemRepo.listarTodos().forEach(i -> System.out.println(i.getNome() + " - " + i.getStatus() + " - Qtd: " + i.getQuantidade()));
+                    consultaService.listarDoadores();
+                    break;
+                case 6:
+                    consultaService.listarBeneficiarios();
+                    break;
+                case 7:
+                    consultaService.listarItensDisponiveis();
+                    break;
+                case 8:
+                    consultaService.filtrarItensPorCategoria();
                     break;
                 case 0:
                     System.out.println("Saindo...");

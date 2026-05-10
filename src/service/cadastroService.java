@@ -4,6 +4,10 @@ import model.Doador;
 import model.Beneficiario;
 import model.ItemDoacao;
 import model.StatusItem;
+import model.CategoriaItem;
+import model.EstadoConservacao;
+import model.TipoBeneficiario;
+import model.NivelPrioridade;
 import repository.UsuarioRepository;
 import repository.ItemRepository;
 import util.MenuUtils;
@@ -72,8 +76,8 @@ public class CadastroService {
         String nome = MenuUtils.lerString("Nome do Item: ");
         String descricao = MenuUtils.lerString("Descrição: ");
         int quantidade = MenuUtils.lerInteiro("Quantidade: ");
-        String categoria = MenuUtils.lerString("Categoria: ");
-        String estado = MenuUtils.lerString("Estado de Conservação: ");
+        CategoriaItem categoria = MenuUtils.lerEnum("Categoria: ", CategoriaItem.class);
+        EstadoConservacao estado = MenuUtils.lerEnum("Estado de Conservação: ", EstadoConservacao.class);
         LocalDate dataCadastro = LocalDate.now();
         StatusItem status = StatusItem.DISPONIVEL;
         

@@ -2,6 +2,7 @@ package repository;
 
 import model.ItemDoacao;
 import model.StatusItem;
+import model.CategoriaItem;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,9 +39,9 @@ public class ItemRepository {
     }
 
     // Filtra por categoria (Ex: "Alimentos", "Roupas") 
-    public List<ItemDoacao> filtrarPorCategoria(String categoria) {
+    public List<ItemDoacao> filtrarPorCategoria(CategoriaItem categoria) {
         return itens.stream()
-                    .filter(i -> i.getCategoria().equalsIgnoreCase(categoria))
+                    .filter(i -> i.getCategoria().equals(categoria))
                     .collect(Collectors.toList());
     }
 }

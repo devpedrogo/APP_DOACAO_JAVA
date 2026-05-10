@@ -27,8 +27,7 @@ public class Main {
             System.out.println("7. Listar Itens Disponíveis");
             System.out.println("8. Filtrar Itens por Categoria");
             System.out.println("0. Sair");
-            System.out.print("Escolha: ");
-            opcao = MenuUtils.lerInteiro("");
+            opcao = MenuUtils.lerInteiro("Escolha: ");
 
             switch(opcao) {
                 case 1:

@@ -7,15 +7,15 @@ public class ItemDoacao {
     private String nome;
     private String descricao;
     private int quantidade;
-    private String categoria;
-    private String estadoConservacao;
+    private CategoriaItem categoria;
+    private EstadoConservacao estadoConservacao;
     private LocalDate dataCadastro;
     private StatusItem status;
 
     public ItemDoacao() {
     }
 
-    public ItemDoacao(int id, String nome, String descricao, int quantidade, String categoria, String estadoConservacao, LocalDate dataCadastro, StatusItem status) {
+    public ItemDoacao(int id, String nome, String descricao, int quantidade, CategoriaItem categoria, EstadoConservacao estadoConservacao, LocalDate dataCadastro, StatusItem status) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -58,19 +58,19 @@ public class ItemDoacao {
         this.quantidade = quantidade;
     }
 
-    public String getCategoria() {
+    public CategoriaItem getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(CategoriaItem categoria) {
         this.categoria = categoria;
     }
 
-    public String getEstadoConservacao() {
+    public EstadoConservacao getEstadoConservacao() {
         return estadoConservacao;
     }
 
-    public void setEstadoConservacao(String estadoConservacao) {
+    public void setEstadoConservacao(EstadoConservacao estadoConservacao) {
         this.estadoConservacao = estadoConservacao;
     }
 

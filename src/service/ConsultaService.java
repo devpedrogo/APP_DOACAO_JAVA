@@ -27,7 +27,7 @@ public class ConsultaService {
     }
 
     public void listarBeneficiarios() {
-        
+
         if(usuarioRepo.listarBeneficiarios().isEmpty()) {
             System.out.println("Nenhum beneficiário cadastrado.");
             return;
@@ -50,7 +50,7 @@ public class ConsultaService {
     }
 
     public void filtrarItensPorCategoria() {
-        String cat = MenuUtils.lerString("Digite a categoria para filtrar: ");
+        CategoriaItem cat = MenuUtils.lerEnum("Digite a categoria para filtrar: ", CategoriaItem.class);
 
         if(itemRepo.filtrarPorCategoria(cat).isEmpty()) {
             System.out.println("Nenhum item encontrado na categoria: " + cat);

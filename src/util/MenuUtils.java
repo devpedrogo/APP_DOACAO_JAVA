@@ -34,4 +34,20 @@ public class MenuUtils {
         }
     }
 
+    public static <T extends Enum<T>> T lerEnum(String mensagem, Class<T> enumClass) {
+        while (true) {
+            System.out.println(mensagem);
+            T[] constantes = enumClass.getEnumConstants();
+            for (int i = 0; i < constantes.length; i++) {
+                System.out.println((i + 1) + ". " + constantes[i]);
+            }
+            
+            int escolha = lerInteiro("Escolha uma opção: ");
+            if (escolha > 0 && escolha <= constantes.length) {
+                return constantes[escolha - 1];
+            }
+            System.out.println("Erro: Opção inválida!");
+        }
+    }
+
 }

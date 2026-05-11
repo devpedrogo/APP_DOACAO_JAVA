@@ -53,8 +53,8 @@ public class CadastroService {
         String fone = MenuUtils.lerString("Telefone: ");
         String email = MenuUtils.lerString("Email: ");
         String endereco = MenuUtils.lerString("Endereco: ");
-        String tipo = MenuUtils.lerString("Tipo (individual/familia/organizacao): ");
-        int prioridade = MenuUtils.lerInteiro("Nivel de Prioridade (1-5): ");
+        TipoBeneficiario tipo = MenuUtils.lerEnum("Tipo de Beneficiário: ", TipoBeneficiario.class);
+        NivelPrioridade prioridade = MenuUtils.lerEnum("Nível de Prioridade: ", NivelPrioridade.class);
 
         Beneficiario beneficiario = new Beneficiario();
         beneficiario.setId(id);

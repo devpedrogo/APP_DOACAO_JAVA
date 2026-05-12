@@ -1,6 +1,8 @@
 package main;
 
 import repository.ItemRepository;
+import repository.SolicitacaoRepository;
+import repository.DoacaoRepository;
 import repository.UsuarioRepository;
 import service.CadastroService;
 import service.SolicitacaoService;
@@ -12,7 +14,9 @@ public class Main {
         ItemRepository itemRepo = new ItemRepository();
         UsuarioRepository usuarioRepo = new UsuarioRepository();
         CadastroService cadastroService = new CadastroService(usuarioRepo, itemRepo);
-        SolicitacaoService solicitacaoService = new SolicitacaoService(itemRepo, usuarioRepo);
+        SolicitacaoRepository solRepo = new SolicitacaoRepository();
+        DoacaoRepository doacaoRepo = new DoacaoRepository();
+        SolicitacaoService solicitacaoService = new SolicitacaoService(itemRepo, usuarioRepo, solRepo, doacaoRepo);
         ConsultaService consultaService = new ConsultaService(itemRepo, usuarioRepo);
         int opcao = 0;
 
@@ -26,6 +30,7 @@ public class Main {
             System.out.println("6. Listar Beneficiários");
             System.out.println("7. Listar Itens Disponíveis");
             System.out.println("8. Filtrar Itens por Categoria");
+            System.out.println("9. Concluir Doação");
             System.out.println("0. Sair");
             opcao = MenuUtils.lerInteiro("Escolha: ");
 
@@ -53,6 +58,9 @@ public class Main {
                     break;
                 case 8:
                     consultaService.filtrarItensPorCategoria();
+                    break;
+                case 9:
+                    solicitacaoService.concluirDoacao();
                     break;
                 case 0:
                     System.out.println("Saindo...");

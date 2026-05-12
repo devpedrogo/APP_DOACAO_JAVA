@@ -11,14 +11,11 @@ public class SolicitacaoService {
     private DoacaoRepository doacaoRepo;
     private static int contadorId = 1; // Simulação de ID auto-incremento
 
-    public SolicitacaoService(SolicitacaoRepository solRepo, DoacaoRepository doacaoRepo) {
-        this.solRepo = solRepo;
-        this.doacaoRepo = doacaoRepo;
-    }
-
-    public SolicitacaoService(ItemRepository itemRepo, UsuarioRepository usuarioRepo) {
+    public SolicitacaoService(ItemRepository itemRepo, UsuarioRepository usuarioRepo, SolicitacaoRepository solRepo, DoacaoRepository doacaoRepo) {
         this.itemRepo = itemRepo;
         this.usuarioRepo = usuarioRepo;
+        this.solRepo = solRepo;
+        this.doacaoRepo = doacaoRepo;
     }
 
     public void realizarSolicitacao() {
@@ -35,7 +32,6 @@ public class SolicitacaoService {
         int idItem = MenuUtils.lerInteiro("ID do Item desejado: ");
         ItemDoacao item = itemRepo.buscarPorId(idItem);
 
-        // REGRA DE NEGÓCIO: Impedir solicitação de item indisponível [cite: 85]
         if (item == null || item.getStatus() != StatusItem.DISPONIVEL) {
             System.out.println("Erro: Item não disponível para solicitação!");
             return;
@@ -56,11 +52,16 @@ public class SolicitacaoService {
             String justificativa = MenuUtils.lerString("Justificativa para a solicitação: ");
     
             Solicitacao sol = new Solicitacao();
+            sol.setId(contadorId);
             sol.setBeneficiario(benef);
             sol.setItem(item);
             sol.setQuantidadeSolicitada(qtdSolicitada);
             sol.setJustificativa(justificativa);
             sol.setStatus("PENDENTE");
+
+            solRepo.salvar(sol); 
+            contadorId++;    
+            System.out.println("Solicitação registrada com ID: " + sol.getId());
 
             System.out.println("Solicitação registrada! Restam " + item.getQuantidade() + " unidades deste item.");
         } else {

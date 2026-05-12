@@ -7,6 +7,14 @@ import util.MenuUtils;
 public class SolicitacaoService {
     private ItemRepository itemRepo;
     private UsuarioRepository usuarioRepo;
+    private SolicitacaoRepository solRepo;
+    private DoacaoRepository doacaoRepo;
+    private static int contadorId = 1; // Simulação de ID auto-incremento
+
+    public SolicitacaoService(SolicitacaoRepository solRepo, DoacaoRepository doacaoRepo) {
+        this.solRepo = solRepo;
+        this.doacaoRepo = doacaoRepo;
+    }
 
     public SolicitacaoService(ItemRepository itemRepo, UsuarioRepository usuarioRepo) {
         this.itemRepo = itemRepo;
@@ -58,6 +66,42 @@ public class SolicitacaoService {
         } else {
             System.out.println("Erro: Quantidade solicitada excede o disponível! \nRestam apenas " + item.getQuantidade() + " unidades.");
         }
+    }
 
+    public void concluirDoacao() {
+        System.out.println("\n--- FINALIZAR ENTREGA DE DOAÇÃO ---");
+        int idSolicitacao = MenuUtils.lerInteiro("Digite o ID da Solicitação: ");
+        
+        Solicitacao solicitacao = solRepo.buscarPorId(idSolicitacao);
+
+        if (solicitacao == null) {
+            System.out.println("Erro: Solicitação não encontrada!");
+            return;
+        }
+
+        if (solicitacao.getStatus().equalsIgnoreCase("CONCLUIDA")) {
+            System.out.println("Erro: Esta doação já foi finalizada anteriormente.");
+            return;
+        }
+ 
+        ItemDoacao item = solicitacao.getItem();
+        item.setStatus(StatusItem.ENTREGUE);
+
+        solicitacao.setStatus("CONCLUIDA");
+
+        String obs = MenuUtils.lerString("Observações sobre a entrega: ");
+        
+        DoacaoEfetivada registro = new DoacaoEfetivada(
+            contadorId++, 
+            item, 
+            item.getDoador(),
+            solicitacao.getBeneficiario(), 
+            obs
+        );
+
+        doacaoRepo.salvar(registro);
+
+        System.out.println("Item: " + item.getNome() + " entregue a " + solicitacao.getBeneficiario().getNome());
+        System.out.println("A doação foi concluída e registrada no histórico.");
     }
 }

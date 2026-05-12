@@ -72,6 +72,14 @@ public class CadastroService {
     public void cadastrarItem() {
         System.out.println("\n--- NOVO CADASTRO DE ITEM PARA DOAÇÃO ---");
 
+        int idDoador = MenuUtils.lerInteiro("ID do Doador responsável: ");
+        Doador doadorEncontrado = usuarioRepo.buscarDoadorPorId(idDoador);
+
+        if (doadorEncontrado == null) {
+            System.out.println("Erro: Doador não encontrado! Cadastre o doador antes do item.");
+            return; // Interrompe o cadastro do item se não houver doador válido
+        }
+
         int id = MenuUtils.lerInteiro("ID do Item: ");
         String nome = MenuUtils.lerString("Nome do Item: ");
         String descricao = MenuUtils.lerString("Descrição: ");
@@ -82,6 +90,7 @@ public class CadastroService {
         StatusItem status = StatusItem.DISPONIVEL;
         
         ItemDoacao item = new ItemDoacao();
+        item.setDoador(doadorEncontrado);
         item.setId(id);
         item.setNome(nome);
         item.setDescricao(descricao);
@@ -92,7 +101,7 @@ public class CadastroService {
         item.setStatus(status);
 
         itemRepo.salvar(item);
-        System.out.println("Item " + nome + " registrado com sucesso!");
+        System.out.println("Item " + nome + " vinculado ao doador " + doadorEncontrado.getNome());
 
     }
 }

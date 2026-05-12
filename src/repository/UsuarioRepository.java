@@ -21,6 +21,13 @@ public class UsuarioRepository {
         return doadores;
     }
 
+    public Doador buscarDoadorPorId(int id) {
+        return doadores.stream()
+                       .filter(d -> d.getId() == id)
+                       .findFirst()
+                       .orElse(null);
+    }
+
     public List<Beneficiario> listarBeneficiarios() {
         return beneficiarios;
     }

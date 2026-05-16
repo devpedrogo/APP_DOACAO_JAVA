@@ -5,6 +5,7 @@ import java.time.LocalDate;
 public class ItemDoacao {
     private int id;
     private String nome;
+    private Doador doador;
     private String descricao;
     private int quantidade;
     private CategoriaItem categoria;
@@ -15,9 +16,10 @@ public class ItemDoacao {
     public ItemDoacao() {
     }
 
-    public ItemDoacao(int id, String nome, String descricao, int quantidade, CategoriaItem categoria, EstadoConservacao estadoConservacao, LocalDate dataCadastro, StatusItem status) {
+    public ItemDoacao(int id, String nome, Doador doador, String descricao, int quantidade, CategoriaItem categoria, EstadoConservacao estadoConservacao, LocalDate dataCadastro, StatusItem status) {
         this.id = id;
         this.nome = nome;
+        this.doador = doador;
         this.descricao = descricao;
         this.quantidade = quantidade;
         this.categoria = categoria;
@@ -32,6 +34,14 @@ public class ItemDoacao {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Doador getDoador() {
+        return doador;
+    }
+
+    public void setDoador(Doador doador) {
+        this.doador = doador;
     }
 
     public String getNome() {

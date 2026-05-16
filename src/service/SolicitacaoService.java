@@ -86,9 +86,14 @@ public class SolicitacaoService {
         }
  
         ItemDoacao item = solicitacao.getItem();
-        item.setStatus(StatusItem.ENTREGUE);
-
+    
         solicitacao.setStatus("CONCLUIDA");
+
+        if (item.getQuantidade() == 0) {
+            item.setStatus(StatusItem.ENTREGUE); 
+        } else {
+            item.setStatus(StatusItem.DISPONIVEL);
+        }
 
         String obs = MenuUtils.lerString("Observações sobre a entrega: ");
         
@@ -100,7 +105,7 @@ public class SolicitacaoService {
 
         doacaoRepo.salvar(registro);
 
-        System.out.println("Item: " + item.getNome() + " entregue a " + solicitacao.getBeneficiario().getNome());
-        System.out.println("A doação foi concluída e registrada no histórico.");
+        System.out.println("Entrega de " + solicitacao.getQuantidadeSolicitada() + " unidades do item '" + item.getNome() + "' concluída!");
+        System.out.println("Estoque atual do item no sistema: " + item.getQuantidade() + " unidades.");
     }
 }

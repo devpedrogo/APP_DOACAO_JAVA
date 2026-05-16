@@ -94,9 +94,7 @@ public class SolicitacaoService {
         
         DoacaoEfetivada registro = new DoacaoEfetivada(
             contadorId++, 
-            item, 
-            item.getDoador(),
-            solicitacao.getBeneficiario(), 
+            solicitacao,
             obs
         );
 

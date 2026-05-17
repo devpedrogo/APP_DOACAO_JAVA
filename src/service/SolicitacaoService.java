@@ -9,7 +9,7 @@ public class SolicitacaoService {
     private UsuarioRepository usuarioRepo;
     private SolicitacaoRepository solRepo;
     private DoacaoRepository doacaoRepo;
-    private static int contadorId = 1; // Simulação de ID auto-incremento
+    private static int contadorId = 1;
 
     public SolicitacaoService(ItemRepository itemRepo, UsuarioRepository usuarioRepo, SolicitacaoRepository solRepo, DoacaoRepository doacaoRepo) {
         this.itemRepo = itemRepo;

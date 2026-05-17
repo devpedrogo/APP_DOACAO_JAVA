@@ -30,7 +30,8 @@ public class Main {
             System.out.println("6. Listar Beneficiários");
             System.out.println("7. Listar Itens Disponíveis");
             System.out.println("8. Filtrar Itens por Categoria");
-            System.out.println("9. Concluir Doação");
+            System.out.println("9. Filtrar Itens por Status");
+            System.out.println("10. Concluir Doação");
             System.out.println("0. Sair");
             opcao = MenuUtils.lerInteiro("Escolha: ");
 
@@ -60,6 +61,9 @@ public class Main {
                     consultaService.filtrarItensPorCategoria();
                     break;
                 case 9:
+                    consultaService.filtrarItensPorStatus();
+                    break;
+                case 10:
                     solicitacaoService.concluirDoacao();
                     break;
                 case 0:

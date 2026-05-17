@@ -61,4 +61,17 @@ public class ConsultaService {
         itemRepo.filtrarPorCategoria(cat).forEach(i -> 
             System.out.println(i.getNome() + " | Status: " + i.getStatus()));
     }
+
+    public void filtrarItensPorStatus(){
+        StatusItem status = MenuUtils.lerEnum("Digite o status para filtrar: ", StatusItem.class);
+
+        if(itemRepo.filtrarPorStatus(status).isEmpty()) {
+            System.out.println("Nenhum item encontrado com status: " + status);
+            return;
+        }
+
+        System.out.println("\n--- ITENS COM STATUS: " + status + " --- ");
+        itemRepo.filtrarPorStatus(status).forEach(i -> 
+            System.out.println(i.getNome() + " | Categoria: " + i.getCategoria()));
+    }
 }

@@ -1,5 +1,7 @@
 package service;
 
+import java.util.List;
+
 import model.*;
 import repository.*;
 import util.MenuUtils;
@@ -107,5 +109,79 @@ public class SolicitacaoService {
 
         System.out.println("Entrega de " + solicitacao.getQuantidadeSolicitada() + " unidades do item '" + item.getNome() + "' concluída!");
         System.out.println("Estoque atual do item no sistema: " + item.getQuantidade() + " unidades.");
+    }
+
+    public void cancelarSolicitacao() {
+        System.out.println("\n--- CANCELAR SOLICITAÇÃO ---");
+        int idSolicitacao = MenuUtils.lerInteiro("Digite o ID da Solicitação para cancelar: ");
+        
+        Solicitacao solicitacao = solRepo.buscarPorId(idSolicitacao);
+
+        if (solicitacao == null) {
+            System.out.println("Erro: Solicitação não encontrada!");
+            return;
+        }
+
+        if (!solicitacao.getStatus().equalsIgnoreCase("PENDENTE")) {
+            System.out.println("Erro: Apenas solicitações PENDENTES podem ser canceladas.");
+            return;
+        }
+
+        ItemDoacao item = solicitacao.getItem();
+        int estoqueAtualizado = item.getQuantidade() + solicitacao.getQuantidadeSolicitada();
+        item.setQuantidade(estoqueAtualizado);
+
+        item.setStatus(StatusItem.DISPONIVEL);
+
+        solicitacao.setStatus("CANCELADA");
+
+        System.out.println("Sucesso! Solicitação #" + solicitacao.getId() + " foi CANCELADA.");
+        System.out.println("Estoque do item '" + item.getNome() + "' reabastecido para " + estoqueAtualizado + " unidades.");
+    }
+
+    public void gerenciarSolicitacoesPendentes() {
+        System.out.println("\n--- GERENCIAR SOLICITAÇÕES PENDENTES ---");
+
+        List<Solicitacao> pendentes = solRepo.listarTodas().stream()
+                .filter(s -> s.getStatus().equalsIgnoreCase("PENDENTE"))
+                .toList();
+
+        if (pendentes.isEmpty()) {
+            System.out.println("Nenhuma solicitação pendente para gerenciar.");
+            return;
+        }
+
+        System.out.println("-------------------------------------------------------------------");
+        pendentes.forEach(s -> {
+            System.out.println("ID: " + s.getId() +
+                            " | Item: " + s.getItem().getNome() +
+                            " | Qtd: " + s.getQuantidadeSolicitada() +
+                            " | Beneficiário: " + s.getBeneficiario().getNome() +
+                            " (Prioridade: " + s.getBeneficiario().getNivelPrioridade() + ")");
+        });
+        System.out.println("-------------------------------------------------------------------");
+
+        int idEscolhido = MenuUtils.lerInteiro("Digite o ID da solicitação que deseja gerenciar (ou 0 para voltar): ");
+        
+        if (idEscolhido == 0) return;
+
+        Solicitacao solicitacao = solRepo.buscarPorId(idEscolhido);
+
+        if (solicitacao == null || !solicitacao.getStatus().equalsIgnoreCase("PENDENTE")) {
+            System.out.println("Erro: ID inválido ou solicitação não está mais pendente!");
+            return;
+        }
+
+        System.out.println("\nO que deseja fazer com a solicitação #" + idEscolhido + "?");
+        System.out.println("[1] Efetivar (Concluir Entrega)");
+        System.out.println("[2] Cancelar Solicitação");
+        System.out.println("[0] Voltar sem alterar");
+        int opcao = MenuUtils.lerInteiro("Opção: ");
+
+        switch (opcao) {
+            case 1 -> concluirDoacao();
+            case 2 -> cancelarSolicitacao();
+            default -> System.out.println("Operação cancelada.");
+        }
     }
 }

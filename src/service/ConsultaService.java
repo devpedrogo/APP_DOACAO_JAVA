@@ -4,16 +4,19 @@ import model.*;
 import repository.*;
 import util.MenuUtils;
 import java.util.List;
+import java.util.stream.*;
 
 public class ConsultaService {
     private ItemRepository itemRepo;
     private UsuarioRepository usuarioRepo;
     private DoacaoRepository doacaoRepo;
+    private SolicitacaoRepository solRepo;
 
-    public ConsultaService(ItemRepository itemRepo, UsuarioRepository usuarioRepo, DoacaoRepository doacaoRepo) {
+    public ConsultaService(ItemRepository itemRepo, UsuarioRepository usuarioRepo, DoacaoRepository doacaoRepo, SolicitacaoRepository solRepo) {
         this.itemRepo = itemRepo;
         this.usuarioRepo = usuarioRepo;
         this.doacaoRepo = doacaoRepo;
+        this.solRepo = solRepo;
     }
 
     public void listarDoadores() {
@@ -80,6 +83,27 @@ public class ConsultaService {
                 System.out.println("Item: " + d.getSolicitacao().getItem().getNome() + 
                                 " | Qtd: " + d.getSolicitacao().getQuantidadeSolicitada() + 
                                 " | Entregue para: " + d.getSolicitacao().getBeneficiario().getNome())
+            );
+            return;
+        }
+
+        if (status == StatusItem.RESERVADO) {
+            System.out.println("\n--- SOLICITAÇÕES PENDENTES (ITENS RESERVADOS) ---");
+            
+            List<Solicitacao> pendentes = solRepo.listarTodas().stream()
+                    .filter(s -> s.getStatus().equalsIgnoreCase("PENDENTE"))
+                    .collect(Collectors.toList());
+
+            if (pendentes.isEmpty()) {
+                System.out.println("Nenhum item reservado com solicitação pendente no momento.");
+                return;
+            }
+
+            pendentes.forEach(s -> 
+                System.out.println("ID Solicitação: " + s.getId() +
+                                " | Item Reservado: " + s.getItem().getNome() + 
+                                " | Qtd: " + s.getQuantidadeSolicitada() + 
+                                " | Aguardando entrega para: " + s.getBeneficiario().getNome())
             );
             return;
         }

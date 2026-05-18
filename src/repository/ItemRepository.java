@@ -30,15 +30,13 @@ public class ItemRepository {
                     .filter(i -> i.getStatus() == status)
                     .collect(Collectors.toList());
     }
-
-    // Filtra apenas itens com status DISPONIVEL 
+ 
     public List<ItemDoacao> listarDisponiveis() {
         return itens.stream()
                     .filter(i -> i.getStatus() == StatusItem.DISPONIVEL)
                     .collect(Collectors.toList());
     }
-
-    // Filtra por categoria (Ex: "Alimentos", "Roupas") 
+ 
     public List<ItemDoacao> filtrarPorCategoria(CategoriaItem categoria) {
         return itens.stream()
                     .filter(i -> i.getCategoria().equals(categoria))

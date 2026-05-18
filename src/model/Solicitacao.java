@@ -6,7 +6,7 @@ public class Solicitacao {
     private ItemDoacao item;
     private int quantidadeSolicitada;
     private String justificativa;
-    private String status; // Ex: "PENDENTE", "APROVADA", "REJEITADA"
+    private String status;
 
     public Solicitacao() {
     }

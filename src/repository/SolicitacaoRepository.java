@@ -17,4 +17,8 @@ public class SolicitacaoRepository {
                 .findFirst()
                 .orElse(null);
     }
+
+    public List<Solicitacao> listarTodas() {
+        return this.solicitacoes;
+    }
 }

@@ -10,12 +10,17 @@ O projeto está alinhado com os **Objetivos de Desenvolvimento Sustentável (ODS
 
 ---
 
-## 🚀 Status do Projeto: Checkpoint 1
-Atualmente, o sistema encontra-se na fase de modelagem inicial e estrutura de dados, contendo:
+## 🚀 Status do Projeto: Checkpoint 2
+Atualmente, o sistema encontra-se em estagio avançado, contendo:
 - [x] Modelagem das classes principais (POO).
 - [x] Diagrama de classes.
 - [x] Sistema de menu via terminal.
 - [x] Cadastro básico de Doadores, Beneficiários e Itens.
+- [x] Solicitação de item.
+- [x] Validações.
+- [x] Mudança de status.
+- [x] Listagens e filtros.
+- [x] Tratamento de erros de entrada.
 
 ---
 
@@ -23,7 +28,7 @@ Atualmente, o sistema encontra-se na fase de modelagem inicial e estrutura de da
 O sistema utiliza os conceitos de Herança e Encapsulamento para organizar os usuários e itens:
 
 ### Diagrama de Classes
-![Diagrama de Classes](./docs/app_doacao.drawio%20(1).png) 
+![Diagrama de Classes](./docs/javapoo.drawio.png) 
 
 ---
 
@@ -41,4 +46,5 @@ src/
      ├── main/        # Classe de entrada e inicialização (Menu)
      ├── model/       # Classes de domínio (Doador, Beneficiário, Item)
      ├── repository/  # Gerenciamento de dados em memória
+     ├── service/     # Regras de negócio.
      └── util/        # Classes utilitárias e leitores

@@ -77,7 +77,7 @@ public class CadastroService {
 
         if (doadorEncontrado == null) {
             System.out.println("Erro: Doador não encontrado! Cadastre o doador antes do item.");
-            return; // Interrompe o cadastro do item se não houver doador válido
+            return;
         }
 
         int id = MenuUtils.lerInteiro("ID do Item: ");

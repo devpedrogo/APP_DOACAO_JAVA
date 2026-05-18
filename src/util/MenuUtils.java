@@ -19,15 +19,15 @@ public class MenuUtils {
     public static int lerInteiro(String mensagem) {
         while (true) {
             System.out.print(mensagem);
-            String entrada = scanner.nextLine().trim(); // Lê como String para verificar se está vazio
+            String entrada = scanner.nextLine().trim();
 
             if (entrada.isEmpty()) {
                 System.out.println("Erro: O campo não pode estar vazio. Digite um número.");
-                continue; // Volta para o início do loop
+                continue; 
             }
 
             try {
-                return Integer.parseInt(entrada); // Tenta converter a String para int
+                return Integer.parseInt(entrada);
             } catch (NumberFormatException e) {
                 System.out.println("Erro: Digite apenas números inteiros válidos.");
             }

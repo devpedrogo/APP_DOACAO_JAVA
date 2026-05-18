@@ -8,10 +8,12 @@ import java.util.List;
 public class ConsultaService {
     private ItemRepository itemRepo;
     private UsuarioRepository usuarioRepo;
+    private DoacaoRepository doacaoRepo;
 
-    public ConsultaService(ItemRepository itemRepo, UsuarioRepository usuarioRepo) {
+    public ConsultaService(ItemRepository itemRepo, UsuarioRepository usuarioRepo, DoacaoRepository doacaoRepo) {
         this.itemRepo = itemRepo;
         this.usuarioRepo = usuarioRepo;
+        this.doacaoRepo = doacaoRepo;
     }
 
     public void listarDoadores() {
@@ -62,16 +64,36 @@ public class ConsultaService {
             System.out.println(i.getNome() + " | Status: " + i.getStatus()));
     }
 
-    public void filtrarItensPorStatus(){
+    public void filtrarItensPorStatus() {
         StatusItem status = MenuUtils.lerEnum("Digite o status para filtrar: ", StatusItem.class);
 
-        if(itemRepo.filtrarPorStatus(status).isEmpty()) {
-            System.out.println("Nenhum item encontrado com status: " + status);
+        if (status == StatusItem.ENTREGUE) {
+            System.out.println("\n--- HISTÓRICO DE ITENS ENTREGUES ---");
+            List<DoacaoEfetivada> entregues = doacaoRepo.listarTodas();
+            
+            if (entregues.isEmpty()) {
+                System.out.println("Nenhum item foi entregue até o momento.");
+                return;
+            }
+            
+            entregues.forEach(d -> 
+                System.out.println("Item: " + d.getSolicitacao().getItem().getNome() + 
+                                " | Qtd: " + d.getSolicitacao().getQuantidadeSolicitada() + 
+                                " | Entregue para: " + d.getSolicitacao().getBeneficiario().getNome())
+            );
             return;
         }
 
-        System.out.println("\n--- ITENS COM STATUS: " + status + " --- ");
-        itemRepo.filtrarPorStatus(status).forEach(i -> 
-            System.out.println(i.getNome() + " | Categoria: " + i.getCategoria()));
+        List<ItemDoacao> itensFiltrados = itemRepo.filtrarPorStatus(status);
+
+        if (itensFiltrados.isEmpty()) {
+            System.out.println("Nenhum item encontrado no estoque com status: " + status);
+            return;
+        }
+
+        System.out.println("\n--- ITENS NO ESTOQUE COM STATUS: " + status + " --- ");
+        itensFiltrados.forEach(i -> 
+            System.out.println("ID: " + i.getId() + " | " + i.getNome() + " | Qtd Lote: " + i.getQuantidade() + " | Categoria: " + i.getCategoria())
+        );
     }
 }

@@ -17,7 +17,7 @@ public class Main {
         SolicitacaoRepository solRepo = new SolicitacaoRepository();
         DoacaoRepository doacaoRepo = new DoacaoRepository();
         SolicitacaoService solicitacaoService = new SolicitacaoService(itemRepo, usuarioRepo, solRepo, doacaoRepo);
-        ConsultaService consultaService = new ConsultaService(itemRepo, usuarioRepo);
+        ConsultaService consultaService = new ConsultaService(itemRepo, usuarioRepo, doacaoRepo);
         int opcao = 0;
 
         do {
